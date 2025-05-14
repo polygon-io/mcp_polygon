@@ -45,11 +45,14 @@ npm install -g @anthropic-ai/claude-code
 ```
 
 Use the following command to add the Polygon MCP server to your local environment.
+This assumes `uvx` is in your $PATH; if not, then you need to provide the full
+path to `uvx`.
 
 ```bash
 # Claude CLI
-claude mcp add polygon -e POLYGON_API_KEY=your_api_key_here -- uv run /path/to/mcp_polygon/entrypoint.py
+claude mcp add polygon -e POLYGON_API_KEY=your_api_key_here -- uvx --from git+https://github.com/polygon-io/mcp_polygon@master mcp_polygon
 ```
+
 This command will install the MCP server in your current project.
 If you want to install it globally, you can run the command with `-s <scope>` flag.
 See `claude mcp add --help` for more options.
