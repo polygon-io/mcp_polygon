@@ -14,7 +14,7 @@
 
 # Polygon.io MCP Server
 
-A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that provides access to [Polygon.io](https://polygon.io) financial market data API through an LLM-friendly interface.
+A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that provides access to [Polygon.io](https://polygon.io?utm_campaign=mcp&utm_medium=referral&utm_source=github) financial market data API through an LLM-friendly interface.
 
 ## Overview
 
@@ -168,7 +168,7 @@ npx @modelcontextprotocol/inspector uv --directory /path/to/mcp_polygon run mcp_
 This will launch a browser interface where you can interact with your MCP server directly and see input/output for each tool.
 
 ## Links
-- [Polygon.io Documentation](https://polygon.io/docs)
+- [Polygon.io Documentation](https://polygon.io/docs?utm_campaign=mcp&utm_medium=referral&utm_source=github)
 - [Model Context Protocol](https://modelcontextprotocol.io)
 - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 
@@ -179,6 +179,6 @@ We're also open to volunteers if you want to submit a PR for any open issues but
 PRs that aren't linked to an existing issue or discussed with us ahead of time will generally be declined.
 
 <!----------------------------------------------------------------------------->
-[Link]: https://polygon.io 'Polygon.io Home Page'
+[Link]: https://polygon.io?utm_campaign=mcp&utm_medium=referral&utm_source=github 'Polygon.io Home Page'
 <!---------------------------------[ Buttons ]--------------------------------->
 [Button]: https://img.shields.io/badge/Get_One_For_Free-5F5CFF?style=for-the-badge&logoColor=white
