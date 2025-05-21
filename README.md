@@ -134,6 +134,30 @@ uv sync
 POLYGON_API_KEY=your_api_key_here uv run mcp_polygon
 ```
 
+<details>
+  <summary>Local Dev Config for claude_desktop_config.json</summary>
+
+```json
+
+    "mcpServers": {
+      "polygon": {
+        "command": "/your/path/.cargo/bin/uv",
+        "args": [
+          "run",
+          "--with",
+          "/your/path/mcp_polygon",
+          "mcp_polygon"
+        ],
+        "env": {
+          "POLYGON_API_KEY": "your_api_key_here",
+          "HOME": "/Users/danny"
+        }
+      }
+    }
+  }
+```
+</details>
+
 ### Debugging
 
 For debugging and testing, we recommend using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
