@@ -759,7 +759,7 @@ async def list_stock_financials(
     Get fundamental financial data for companies.
     """
     try:
-        results = polygon_client.list_stock_financials(
+        results = polygon_client.vx.list_stock_financials(
             ticker=ticker,
             cik=cik,
             company_name=company_name,
