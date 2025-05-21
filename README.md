@@ -139,19 +139,18 @@ POLYGON_API_KEY=your_api_key_here uv run mcp_polygon
 
 ```json
 
-    "mcpServers": {
-      "polygon": {
-        "command": "/your/path/.cargo/bin/uv",
-        "args": [
-          "run",
-          "--with",
-          "/your/path/mcp_polygon",
-          "mcp_polygon"
-        ],
-        "env": {
-          "POLYGON_API_KEY": "your_api_key_here",
-          "HOME": "/Users/danny"
-        }
+  "mcpServers": {
+    "polygon": {
+      "command": "/your/path/.cargo/bin/uv",
+      "args": [
+        "run",
+        "--with",
+        "/your/path/mcp_polygon",
+        "mcp_polygon"
+      ],
+      "env": {
+        "POLYGON_API_KEY": "your_api_key_here",
+        "HOME": "/Users/danny"
       }
     }
   }
