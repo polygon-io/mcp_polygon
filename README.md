@@ -179,6 +179,6 @@ We're also open to volunteers if you want to submit a PR for any open issues but
 PRs that aren't linked to an existing issue or discussed with us ahead of time will generally be declined.
 
 <!----------------------------------------------------------------------------->
-[Link]: https://polygon.io?utm_campaign=mcp&utm_medium=referral&utm_source=github 'Polygon.io Home Page'
+[Link]: https://polygon.io/?utm_campaign=mcp&utm_medium=referral&utm_source=github 'Polygon.io Home Page'
 <!---------------------------------[ Buttons ]--------------------------------->
 [Button]: https://img.shields.io/badge/Get_One_For_Free-5F5CFF?style=for-the-badge&logoColor=white
