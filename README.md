@@ -134,6 +134,8 @@ uv sync
 POLYGON_API_KEY=your_api_key_here uv run mcp_polygon
 ```
 
+The server will exit with an error if `POLYGON_API_KEY` is not set.
+
 <details>
   <summary>Local Dev Config for claude_desktop_config.json</summary>
 
