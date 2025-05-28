@@ -789,6 +789,150 @@ async def list_stock_financials(
     except Exception as e:
         return {"error": str(e)}
 
+@poly_mcp.tool()
+async def list_ipos(
+        ticker: Optional[str] = None,
+        listing_date: Optional[Union[str, datetime, date]] = None,
+        listing_date_lt: Optional[Union[str, datetime, date]] = None,
+        listing_date_lte: Optional[Union[str, datetime, date]] = None,
+        listing_date_gt: Optional[Union[str, datetime, date]] = None,
+        listing_date_gte: Optional[Union[str, datetime, date]] = None,
+        ipo_status: Optional[str] = None,
+        limit: Optional[int] = None,
+        sort: Optional[str] = None,
+        order: Optional[str] = None,
+        params: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+    """
+    Retrieve upcoming or historical IPOs.
+    """
+    try:
+        results = polygon_client.vx.list_ipos(
+            ticker=ticker,
+            listing_date=listing_date,
+            listing_date_lt=listing_date_lt,
+            listing_date_lte=listing_date_lte,
+            listing_date_gt=listing_date_gt,
+            listing_date_gte=listing_date_gte,
+            ipo_status=ipo_status,
+            limit=limit,
+            sort=sort,
+            order=order,
+            params=params,
+            raw=True
+        )
+        
+        data_str = results.data.decode('utf-8')
+        return json.loads(data_str)
+    except Exception as e:
+        return {"error": str(e)}
+
+@poly_mcp.tool()
+async def list_short_interest(
+        ticker: Optional[str] = None,
+        settlement_date: Optional[Union[str, datetime, date]] = None,
+        settlement_date_lt: Optional[Union[str, datetime, date]] = None,
+        settlement_date_lte: Optional[Union[str, datetime, date]] = None,
+        settlement_date_gt: Optional[Union[str, datetime, date]] = None,
+        settlement_date_gte: Optional[Union[str, datetime, date]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[str] = None,
+        order: Optional[str] = None,
+        params: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+    """
+    Retrieve short interest data for stocks.
+    """
+    try:
+        results = polygon_client.vx.list_short_interest(
+            ticker=ticker,
+            settlement_date=settlement_date,
+            settlement_date_lt=settlement_date_lt,
+            settlement_date_lte=settlement_date_lte,
+            settlement_date_gt=settlement_date_gt,
+            settlement_date_gte=settlement_date_gte,
+            limit=limit,
+            sort=sort,
+            order=order,
+            params=params,
+            raw=True
+        )
+        
+        data_str = results.data.decode('utf-8')
+        return json.loads(data_str)
+    except Exception as e:
+        return {"error": str(e)}
+
+@poly_mcp.tool()
+async def list_short_volume(
+        ticker: Optional[str] = None,
+        date: Optional[Union[str, datetime, date]] = None,
+        date_lt: Optional[Union[str, datetime, date]] = None,
+        date_lte: Optional[Union[str, datetime, date]] = None,
+        date_gt: Optional[Union[str, datetime, date]] = None,
+        date_gte: Optional[Union[str, datetime, date]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[str] = None,
+        order: Optional[str] = None,
+        params: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+    """
+    Retrieve short volume data for stocks.
+    """
+    try:
+        results = polygon_client.vx.list_short_volume(
+            ticker=ticker,
+            date=date,
+            date_lt=date_lt,
+            date_lte=date_lte,
+            date_gt=date_gt,
+            date_gte=date_gte,
+            limit=limit,
+            sort=sort,
+            order=order,
+            params=params,
+            raw=True
+        )
+        
+        data_str = results.data.decode('utf-8')
+        return json.loads(data_str)
+    except Exception as e:
+        return {"error": str(e)}
+
+@poly_mcp.tool()
+async def list_treasury_yields(
+        date: Optional[Union[str, datetime, date]] = None,
+        date_lt: Optional[Union[str, datetime, date]] = None,
+        date_lte: Optional[Union[str, datetime, date]] = None,
+        date_gt: Optional[Union[str, datetime, date]] = None,
+        date_gte: Optional[Union[str, datetime, date]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[str] = None,
+        order: Optional[str] = None,
+        params: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+    """
+    Retrieve treasury yield data.
+    """
+    try:
+        results = polygon_client.vx.list_treasury_yields(
+            date=date,
+            date_lt=date_lt,
+            date_lte=date_lte,
+            date_gt=date_gt,
+            date_gte=date_gte,
+            limit=limit,
+            sort=sort,
+            order=order,
+            params=params,
+            raw=True
+        )
+        
+        data_str = results.data.decode('utf-8')
+        return json.loads(data_str)
+    except Exception as e:
+        return {"error": str(e)}
+
 # Directly expose the MCP server object
 # It will be run from entrypoint.py
 
