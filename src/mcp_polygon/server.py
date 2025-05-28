@@ -6,9 +6,9 @@ from polygon import RESTClient
 
 from datetime import datetime, date
 
-POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY", "")
+POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY")
 if not POLYGON_API_KEY:
-    print("Warning: POLYGON_API_KEY environment variable not set.")
+    raise EnvironmentError("POLYGON_API_KEY environment variable not set.")
 
 polygon_client = RESTClient(POLYGON_API_KEY)
 
@@ -794,4 +794,13 @@ async def list_stock_financials(
 
 def run():
     """Run the Polygon MCP server."""
-    poly_mcp.run()
+    try:
+        poly_mcp.run()
+    except Exception as exc:
+        print(f"Error running Polygon MCP server: {exc}")
+        raise
+    finally:
+        try:
+            polygon_client.close()
+        except Exception as close_exc:
+            print(f"Error closing Polygon REST client: {close_exc}")
