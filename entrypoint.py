@@ -10,7 +10,9 @@ def start_server():
     else:
         print("Starting Polygon MCP server with API key configured.")
 
-    server.run()
+    mcp_transport = os.environ.get("MCP_TRANSPORT") or "stdio"
+
+    server.run(mcp_transport)
 
 if __name__ == "__main__":
     start_server()

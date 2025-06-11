@@ -936,6 +936,6 @@ async def list_treasury_yields(
 # Directly expose the MCP server object
 # It will be run from entrypoint.py
 
-def run():
+def run(transport):
     """Run the Polygon MCP server."""
-    poly_mcp.run()
+    poly_mcp.run(transport)

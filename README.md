@@ -94,6 +94,20 @@ Make sure you complete the various fields.
 ```
 </details>
 
+## Transport Configuration
+
+By default, STDIO transport is used.
+
+To configure [SSE](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports#http-with-sse) or [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http), set the `MCP_PROTOCOL` environment variable.
+
+Example:
+
+```bash
+MCP_PROTOCOL=streamable-http \
+POLYGON_API_KEY=<your_api_key_here> \
+uv run entrypoint.py
+```
+
 ## Usage Examples
 
 Once integrated, you can prompt Claude to access Polygon.io data:
