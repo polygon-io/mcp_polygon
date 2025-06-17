@@ -3,6 +3,7 @@ import json
 from typing import Optional, Any, Dict, Union, List
 from mcp.server.fastmcp import FastMCP
 from polygon import RESTClient
+from importlib.metadata import version, PackageNotFoundError
 
 from datetime import datetime, date
 
@@ -10,7 +11,14 @@ POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY", "")
 if not POLYGON_API_KEY:
     print("Warning: POLYGON_API_KEY environment variable not set.")
 
+version_number = "MCP-Polygon/unknown"
+try:
+    version_number = f"MCP-Polygon/{version('mcp_polygon')}"
+except PackageNotFoundError:
+    pass
+
 polygon_client = RESTClient(POLYGON_API_KEY)
+polygon_client.headers["User-Agent"] += f" {version_number}"
 
 poly_mcp = FastMCP("Polygon", dependencies=["polygon"])
 
