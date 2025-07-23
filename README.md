@@ -9,7 +9,7 @@
 </a>
 <br>
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > :test_tube: This project is experimental and could be subject to breaking changes.
 
 # Polygon.io MCP Server
@@ -65,7 +65,7 @@ You can also run `claude mcp add-from-claude-desktop` if the MCP server is insta
 ### Claude Desktop
 
 1. Follow the [Claude Desktop MCP installation instructions](https://modelcontextprotocol.io/quickstart/user) to complete the initial installation and find your configuration file.
-1. Use the following example as reference to add Polygon's MCP server. 
+1. Use the following example as reference to add Polygon's MCP server.
 Make sure you complete the various fields.
     1. Path find your path to `uvx`, run `which uvx` in your terminal.
     2. Replace `<your_api_key_here>` with your actual Polygon.io API key.
@@ -181,15 +181,25 @@ npx @modelcontextprotocol/inspector uv --directory /path/to/mcp_polygon run mcp_
 
 This will launch a browser interface where you can interact with your MCP server directly and see input/output for each tool.
 
+### Code Linting
+
+This project uses [just](https://github.com/casey/just) for common development tasks. To lint your code before submitting a PR:
+
+```bash
+just lint
+```
+
+This will run `ruff format` and `ruff check --fix` to automatically format your code and fix linting issues.
+
 ## Links
 - [Polygon.io Documentation](https://polygon.io/docs?utm_campaign=mcp&utm_medium=referral&utm_source=github)
 - [Model Context Protocol](https://modelcontextprotocol.io)
 - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 
 ## Contributing
-If you found a bug or have an idea for a new feature, please first discuss it with us by submitting a new issue. 
-We will respond to issues within at most 3 weeks. 
-We're also open to volunteers if you want to submit a PR for any open issues but please discuss it with us beforehand. 
+If you found a bug or have an idea for a new feature, please first discuss it with us by submitting a new issue.
+We will respond to issues within at most 3 weeks.
+We're also open to volunteers if you want to submit a PR for any open issues but please discuss it with us beforehand.
 PRs that aren't linked to an existing issue or discussed with us ahead of time will generally be declined.
 
 <!----------------------------------------------------------------------------->

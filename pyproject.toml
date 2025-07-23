@@ -16,5 +16,10 @@ email = "support@polygon.io"
 requires = [ "hatchling",]
 build-backend = "hatchling.build"
 
+[dependency-groups]
+dev = [
+    "ruff>=0.12.4",
+]
+
 [project.scripts]
 mcp_polygon = "mcp_polygon:run"

@@ -1,0 +1,36 @@
+name: Validate Code Quality
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  lint:
+    name: Code Quality & Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run Ruff check
+        run: uv ruff check
+
+      - name: Run Ruff format
+        run: uv ruff format --check
