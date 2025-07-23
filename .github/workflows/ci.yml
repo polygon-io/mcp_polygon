@@ -30,7 +30,7 @@ jobs:
         run: uv sync
 
       - name: Run Ruff check
-        run: uv ruff check
+        run: uv run ruff check
 
       - name: Run Ruff format
-        run: uv ruff format --check
+        run: uv run ruff format --check
