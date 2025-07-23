@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Optional, Any, Dict, Union, List
+from typing import Optional, Any, Dict, Union, List, Literal
 from mcp.server.fastmcp import FastMCP
 from polygon import RESTClient
 from importlib.metadata import version, PackageNotFoundError
@@ -22,18 +22,19 @@ polygon_client.headers["User-Agent"] += f" {version_number}"
 
 poly_mcp = FastMCP("Polygon", dependencies=["polygon"])
 
+
 @poly_mcp.tool()
 async def get_aggs(
-        ticker: str,
-        multiplier: int,
-        timespan: str,
-        from_: Union[str, int, datetime, date],
-        to: Union[str, int, datetime, date],
-        adjusted: Optional[bool] = None,
-        sort: Optional[str] = None,
-        limit: Optional[int] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    multiplier: int,
+    timespan: str,
+    from_: Union[str, int, datetime, date],
+    to: Union[str, int, datetime, date],
+    adjusted: Optional[bool] = None,
+    sort: Optional[str] = None,
+    limit: Optional[int] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     List aggregate bars for a ticker over a given date range in custom time window sizes.
     """
@@ -48,27 +49,28 @@ async def get_aggs(
             sort=sort,
             limit=limit,
             params=params,
-            raw=True
+            raw=True,
         )
-        
+
         # Parse the binary data to string and then to JSON
-        data_str = results.data.decode('utf-8')
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_aggs(
-        ticker: str,
-        multiplier: int,
-        timespan: str,
-        from_: Union[str, int, datetime, date],
-        to: Union[str, int, datetime, date],
-        adjusted: Optional[bool] = None,
-        sort: Optional[str] = None,
-        limit: Optional[int] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    multiplier: int,
+    timespan: str,
+    from_: Union[str, int, datetime, date],
+    to: Union[str, int, datetime, date],
+    adjusted: Optional[bool] = None,
+    sort: Optional[str] = None,
+    limit: Optional[int] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Iterate through aggregate bars for a ticker over a given date range.
     """
@@ -83,23 +85,24 @@ async def list_aggs(
             sort=sort,
             limit=limit,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_grouped_daily_aggs(
-        date: str,
-        adjusted: Optional[bool] = None,
-        include_otc: Optional[bool] = None,
-        locale: Optional[str] = None,
-        market_type: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    date: str,
+    adjusted: Optional[bool] = None,
+    include_otc: Optional[bool] = None,
+    locale: Optional[str] = None,
+    market_type: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get grouped daily bars for entire market for a specific date.
     """
@@ -111,73 +114,69 @@ async def get_grouped_daily_aggs(
             locale=locale,
             market_type=market_type,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_daily_open_close_agg(
-        ticker: str,
-        date: str,
-        adjusted: Optional[bool] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    date: str,
+    adjusted: Optional[bool] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get daily open, close, high, and low for a specific ticker and date.
     """
     try:
         results = polygon_client.get_daily_open_close_agg(
-            ticker=ticker,
-            date=date,
-            adjusted=adjusted,
-            params=params,
-            raw=True
+            ticker=ticker, date=date, adjusted=adjusted, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_previous_close_agg(
-        ticker: str,
-        adjusted: Optional[bool] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    adjusted: Optional[bool] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get previous day's open, close, high, and low for a specific ticker.
     """
     try:
         results = polygon_client.get_previous_close_agg(
-            ticker=ticker,
-            adjusted=adjusted,
-            params=params,
-            raw=True
+            ticker=ticker, adjusted=adjusted, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_trades(
-        ticker: str,
-        timestamp: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_lt: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_lte: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_gt: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_gte: Optional[Union[str, int, datetime, date]] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    timestamp: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_lt: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_lte: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_gt: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_gte: Optional[Union[str, int, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get trades for a ticker symbol.
     """
@@ -193,69 +192,65 @@ async def list_trades(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_last_trade(
-        ticker: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get the most recent trade for a ticker symbol.
     """
     try:
-        results = polygon_client.get_last_trade(
-            ticker=ticker,
-            params=params,
-            raw=True
-        )
-        
-        data_str = results.data.decode('utf-8')
+        results = polygon_client.get_last_trade(ticker=ticker, params=params, raw=True)
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_last_crypto_trade(
-        from_: str,
-        to: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    from_: str,
+    to: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get the most recent trade for a crypto pair.
     """
     try:
         results = polygon_client.get_last_crypto_trade(
-            from_=from_,
-            to=to,
-            params=params,
-            raw=True
+            from_=from_, to=to, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_quotes(
-        ticker: str,
-        timestamp: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_lt: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_lte: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_gt: Optional[Union[str, int, datetime, date]] = None,
-        timestamp_gte: Optional[Union[str, int, datetime, date]] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    timestamp: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_lt: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_lte: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_gt: Optional[Union[str, int, datetime, date]] = None,
+    timestamp_gte: Optional[Union[str, int, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get quotes for a ticker symbol.
     """
@@ -271,64 +266,60 @@ async def list_quotes(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_last_quote(
-        ticker: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get the most recent quote for a ticker symbol.
     """
     try:
-        results = polygon_client.get_last_quote(
-            ticker=ticker,
-            params=params,
-            raw=True
-        )
-        
-        data_str = results.data.decode('utf-8')
+        results = polygon_client.get_last_quote(ticker=ticker, params=params, raw=True)
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_last_forex_quote(
-        from_: str,
-        to: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    from_: str,
+    to: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get the most recent forex quote.
     """
     try:
         results = polygon_client.get_last_forex_quote(
-            from_=from_,
-            to=to,
-            params=params,
-            raw=True
+            from_=from_, to=to, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_real_time_currency_conversion(
-        from_: str,
-        to: str,
-        amount: Optional[float] = None,
-        precision: Optional[int] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    from_: str,
+    to: str,
+    amount: Optional[float] = None,
+    precision: Optional[int] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get real-time currency conversion.
     """
@@ -339,23 +330,24 @@ async def get_real_time_currency_conversion(
             amount=amount,
             precision=precision,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_universal_snapshots(
-        type: str,
-        ticker_any_of: Optional[List[str]] = None,
-        order: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    type: str,
+    ticker_any_of: Optional[List[str]] = None,
+    order: Optional[str] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get universal snapshots for multiple assets of a specific type.
     """
@@ -367,21 +359,22 @@ async def list_universal_snapshots(
             limit=limit,
             sort=sort,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_snapshot_all(
-        market_type: str,
-        tickers: Optional[List[str]] = None,
-        include_otc: Optional[bool] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    market_type: str,
+    tickers: Optional[List[str]] = None,
+    include_otc: Optional[bool] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get a snapshot of all tickers in a market.
     """
@@ -391,21 +384,22 @@ async def get_snapshot_all(
             tickers=tickers,
             include_otc=include_otc,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_snapshot_direction(
-        market_type: str,
-        direction: str,
-        include_otc: Optional[bool] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    market_type: str,
+    direction: str,
+    include_otc: Optional[bool] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get gainers or losers for a market.
     """
@@ -415,42 +409,41 @@ async def get_snapshot_direction(
             direction=direction,
             include_otc=include_otc,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_snapshot_ticker(
-        market_type: str,
-        ticker: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    market_type: str,
+    ticker: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get snapshot for a specific ticker.
     """
     try:
         results = polygon_client.get_snapshot_ticker(
-            market_type=market_type,
-            ticker=ticker,
-            params=params,
-            raw=True
+            market_type=market_type, ticker=ticker, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_snapshot_option(
-        underlying_asset: str,
-        option_contract: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    underlying_asset: str,
+    option_contract: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get snapshot for a specific option contract.
     """
@@ -459,86 +452,82 @@ async def get_snapshot_option(
             underlying_asset=underlying_asset,
             option_contract=option_contract,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_snapshot_crypto_book(
-        ticker: str,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get snapshot for a crypto ticker's order book.
     """
     try:
         results = polygon_client.get_snapshot_crypto_book(
-            ticker=ticker,
-            params=params,
-            raw=True
+            ticker=ticker, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_market_holidays(
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get upcoming market holidays and their open/close times.
     """
     try:
-        results = polygon_client.get_market_holidays(
-            params=params,
-            raw=True
-        )
-        
-        data_str = results.data.decode('utf-8')
+        results = polygon_client.get_market_holidays(params=params, raw=True)
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_market_status(
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get current trading status of exchanges and financial markets.
     """
     try:
-        results = polygon_client.get_market_status(
-            params=params,
-            raw=True
-        )
-        
-        data_str = results.data.decode('utf-8')
+        results = polygon_client.get_market_status(params=params, raw=True)
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_tickers(
-        ticker: Optional[str] = None,
-        type: Optional[str] = None,
-        market: Optional[str] = None,
-        exchange: Optional[str] = None,
-        cusip: Optional[str] = None,
-        cik: Optional[str] = None,
-        date: Optional[Union[str, datetime, date]] = None,
-        search: Optional[str] = None,
-        active: Optional[bool] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        limit: Optional[int] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    type: Optional[str] = None,
+    market: Optional[str] = None,
+    exchange: Optional[str] = None,
+    cusip: Optional[str] = None,
+    cik: Optional[str] = None,
+    date: Optional[Union[str, datetime, date]] = None,
+    search: Optional[str] = None,
+    active: Optional[bool] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    limit: Optional[int] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Query supported ticker symbols across stocks, indices, forex, and crypto.
     """
@@ -557,45 +546,44 @@ async def list_tickers(
             order=order,
             limit=limit,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_ticker_details(
-        ticker: str,
-        date: Optional[Union[str, datetime, date]] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: str,
+    date: Optional[Union[str, datetime, date]] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get detailed information about a specific ticker.
     """
     try:
         results = polygon_client.get_ticker_details(
-            ticker=ticker,
-            date=date,
-            params=params,
-            raw=True
+            ticker=ticker, date=date, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_ticker_news(
-        ticker: Optional[str] = None,
-        published_utc: Optional[Union[str, datetime, date]] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    published_utc: Optional[Union[str, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get recent news articles for a stock ticker.
     """
@@ -607,44 +595,43 @@ async def list_ticker_news(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_ticker_types(
-        asset_class: Optional[str] = None,
-        locale: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    asset_class: Optional[str] = None,
+    locale: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     List all ticker types supported by Polygon.io.
     """
     try:
         results = polygon_client.get_ticker_types(
-            asset_class=asset_class,
-            locale=locale,
-            params=params,
-            raw=True
+            asset_class=asset_class, locale=locale, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_splits(
-        ticker: Optional[str] = None,
-        execution_date: Optional[Union[str, datetime, date]] = None,
-        reverse_split: Optional[bool] = None,
-        limit: Optional[int] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    execution_date: Optional[Union[str, datetime, date]] = None,
+    reverse_split: Optional[bool] = None,
+    limit: Optional[int] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get historical stock splits.
     """
@@ -655,23 +642,24 @@ async def list_splits(
             reverse_split=reverse_split,
             limit=limit,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_dividends(
-        ticker: Optional[str] = None,
-        ex_dividend_date: Optional[Union[str, datetime, date]] = None,
-        frequency: Optional[int] = None,
-        dividend_type: Optional[str] = None,
-        limit: Optional[int] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    ex_dividend_date: Optional[Union[str, datetime, date]] = None,
+    frequency: Optional[int] = None,
+    dividend_type: Optional[str] = None,
+    limit: Optional[int] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get historical cash dividends.
     """
@@ -683,22 +671,23 @@ async def list_dividends(
             dividend_type=dividend_type,
             limit=limit,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_conditions(
-        asset_class: Optional[str] = None,
-        data_type: Optional[str] = None,
-        id: Optional[int] = None,
-        sip: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    asset_class: Optional[str] = None,
+    data_type: Optional[str] = None,
+    id: Optional[int] = None,
+    sip: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     List conditions used by Polygon.io.
     """
@@ -709,60 +698,59 @@ async def list_conditions(
             id=id,
             sip=sip,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def get_exchanges(
-        asset_class: Optional[str] = None,
-        locale: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    asset_class: Optional[str] = None,
+    locale: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     List exchanges known by Polygon.io.
     """
     try:
         results = polygon_client.get_exchanges(
-            asset_class=asset_class,
-            locale=locale,
-            params=params,
-            raw=True
+            asset_class=asset_class, locale=locale, params=params, raw=True
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_stock_financials(
-        ticker: Optional[str] = None,
-        cik: Optional[str] = None,
-        company_name: Optional[str] = None,
-        company_name_search: Optional[str] = None,
-        sic: Optional[str] = None,
-        filing_date: Optional[Union[str, datetime, date]] = None,
-        filing_date_lt: Optional[Union[str, datetime, date]] = None,
-        filing_date_lte: Optional[Union[str, datetime, date]] = None,
-        filing_date_gt: Optional[Union[str, datetime, date]] = None,
-        filing_date_gte: Optional[Union[str, datetime, date]] = None,
-        period_of_report_date: Optional[Union[str, datetime, date]] = None,
-        period_of_report_date_lt: Optional[Union[str, datetime, date]] = None,
-        period_of_report_date_lte: Optional[Union[str, datetime, date]] = None,
-        period_of_report_date_gt: Optional[Union[str, datetime, date]] = None,
-        period_of_report_date_gte: Optional[Union[str, datetime, date]] = None,
-        timeframe: Optional[str] = None,
-        include_sources: Optional[bool] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    cik: Optional[str] = None,
+    company_name: Optional[str] = None,
+    company_name_search: Optional[str] = None,
+    sic: Optional[str] = None,
+    filing_date: Optional[Union[str, datetime, date]] = None,
+    filing_date_lt: Optional[Union[str, datetime, date]] = None,
+    filing_date_lte: Optional[Union[str, datetime, date]] = None,
+    filing_date_gt: Optional[Union[str, datetime, date]] = None,
+    filing_date_gte: Optional[Union[str, datetime, date]] = None,
+    period_of_report_date: Optional[Union[str, datetime, date]] = None,
+    period_of_report_date_lt: Optional[Union[str, datetime, date]] = None,
+    period_of_report_date_lte: Optional[Union[str, datetime, date]] = None,
+    period_of_report_date_gt: Optional[Union[str, datetime, date]] = None,
+    period_of_report_date_gte: Optional[Union[str, datetime, date]] = None,
+    timeframe: Optional[str] = None,
+    include_sources: Optional[bool] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Get fundamental financial data for companies.
     """
@@ -789,28 +777,29 @@ async def list_stock_financials(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_ipos(
-        ticker: Optional[str] = None,
-        listing_date: Optional[Union[str, datetime, date]] = None,
-        listing_date_lt: Optional[Union[str, datetime, date]] = None,
-        listing_date_lte: Optional[Union[str, datetime, date]] = None,
-        listing_date_gt: Optional[Union[str, datetime, date]] = None,
-        listing_date_gte: Optional[Union[str, datetime, date]] = None,
-        ipo_status: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    listing_date: Optional[Union[str, datetime, date]] = None,
+    listing_date_lt: Optional[Union[str, datetime, date]] = None,
+    listing_date_lte: Optional[Union[str, datetime, date]] = None,
+    listing_date_gt: Optional[Union[str, datetime, date]] = None,
+    listing_date_gte: Optional[Union[str, datetime, date]] = None,
+    ipo_status: Optional[str] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Retrieve upcoming or historical IPOs.
     """
@@ -827,27 +816,28 @@ async def list_ipos(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_short_interest(
-        ticker: Optional[str] = None,
-        settlement_date: Optional[Union[str, datetime, date]] = None,
-        settlement_date_lt: Optional[Union[str, datetime, date]] = None,
-        settlement_date_lte: Optional[Union[str, datetime, date]] = None,
-        settlement_date_gt: Optional[Union[str, datetime, date]] = None,
-        settlement_date_gte: Optional[Union[str, datetime, date]] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    settlement_date: Optional[Union[str, datetime, date]] = None,
+    settlement_date_lt: Optional[Union[str, datetime, date]] = None,
+    settlement_date_lte: Optional[Union[str, datetime, date]] = None,
+    settlement_date_gt: Optional[Union[str, datetime, date]] = None,
+    settlement_date_gte: Optional[Union[str, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Retrieve short interest data for stocks.
     """
@@ -863,27 +853,28 @@ async def list_short_interest(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_short_volume(
-        ticker: Optional[str] = None,
-        date: Optional[Union[str, datetime, date]] = None,
-        date_lt: Optional[Union[str, datetime, date]] = None,
-        date_lte: Optional[Union[str, datetime, date]] = None,
-        date_gt: Optional[Union[str, datetime, date]] = None,
-        date_gte: Optional[Union[str, datetime, date]] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    ticker: Optional[str] = None,
+    date: Optional[Union[str, datetime, date]] = None,
+    date_lt: Optional[Union[str, datetime, date]] = None,
+    date_lte: Optional[Union[str, datetime, date]] = None,
+    date_gt: Optional[Union[str, datetime, date]] = None,
+    date_gte: Optional[Union[str, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Retrieve short volume data for stocks.
     """
@@ -899,26 +890,27 @@ async def list_short_volume(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 @poly_mcp.tool()
 async def list_treasury_yields(
-        date: Optional[Union[str, datetime, date]] = None,
-        date_lt: Optional[Union[str, datetime, date]] = None,
-        date_lte: Optional[Union[str, datetime, date]] = None,
-        date_gt: Optional[Union[str, datetime, date]] = None,
-        date_gte: Optional[Union[str, datetime, date]] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        order: Optional[str] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+    date: Optional[Union[str, datetime, date]] = None,
+    date_lt: Optional[Union[str, datetime, date]] = None,
+    date_lte: Optional[Union[str, datetime, date]] = None,
+    date_gt: Optional[Union[str, datetime, date]] = None,
+    date_gte: Optional[Union[str, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    order: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """
     Retrieve treasury yield data.
     """
@@ -933,17 +925,19 @@ async def list_treasury_yields(
             sort=sort,
             order=order,
             params=params,
-            raw=True
+            raw=True,
         )
-        
-        data_str = results.data.decode('utf-8')
+
+        data_str = results.data.decode("utf-8")
         return json.loads(data_str)
     except Exception as e:
         return {"error": str(e)}
 
+
 # Directly expose the MCP server object
 # It will be run from entrypoint.py
 
-def run(transport):
+
+def run(transport: Literal["stdio", "sse", "streamable-http"] = "stdio") -> None:
     """Run the Polygon MCP server."""
     poly_mcp.run(transport)
