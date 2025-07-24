@@ -842,7 +842,7 @@ async def list_short_interest(
     Retrieve short interest data for stocks.
     """
     try:
-        results = polygon_client.vx.list_short_interest(
+        results = polygon_client.list_short_interest(
             ticker=ticker,
             settlement_date=settlement_date,
             settlement_date_lt=settlement_date_lt,
@@ -879,7 +879,7 @@ async def list_short_volume(
     Retrieve short volume data for stocks.
     """
     try:
-        results = polygon_client.vx.list_short_volume(
+        results = polygon_client.list_short_volume(
             ticker=ticker,
             date=date,
             date_lt=date_lt,
@@ -902,6 +902,7 @@ async def list_short_volume(
 @poly_mcp.tool()
 async def list_treasury_yields(
     date: Optional[Union[str, datetime, date]] = None,
+    date_any_of: Optional[str] = None,
     date_lt: Optional[Union[str, datetime, date]] = None,
     date_lte: Optional[Union[str, datetime, date]] = None,
     date_gt: Optional[Union[str, datetime, date]] = None,
@@ -915,7 +916,7 @@ async def list_treasury_yields(
     Retrieve treasury yield data.
     """
     try:
-        results = polygon_client.vx.list_treasury_yields(
+        results = polygon_client.list_treasury_yields(
             date=date,
             date_lt=date_lt,
             date_lte=date_lte,
@@ -924,6 +925,41 @@ async def list_treasury_yields(
             limit=limit,
             sort=sort,
             order=order,
+            params=params,
+            raw=True,
+        )
+
+        data_str = results.data.decode("utf-8")
+        return json.loads(data_str)
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@poly_mcp.tool()
+async def list_inflation(
+    date: Optional[Union[str, datetime, date]] = None,
+    date_any_of: Optional[str] = None,
+    date_gt: Optional[Union[str, datetime, date]] = None,
+    date_gte: Optional[Union[str, datetime, date]] = None,
+    date_lt: Optional[Union[str, datetime, date]] = None,
+    date_lte: Optional[Union[str, datetime, date]] = None,
+    limit: Optional[int] = None,
+    sort: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """
+    Get inflation data from the Federal Reserve.
+    """
+    try:
+        results = polygon_client.list_inflation(
+            date=date,
+            date_any_of=date_any_of,
+            date_gt=date_gt,
+            date_gte=date_gte,
+            date_lt=date_lt,
+            date_lte=date_lte,
+            limit=limit,
+            sort=sort,
             params=params,
             raw=True,
         )
