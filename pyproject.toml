@@ -1,6 +1,6 @@
 [project]
 name = "mcp_polygon"
-version = "0.2.0"
+version = "0.4.0"
 description = "A MCP server project"
 readme = "README.md"
 requires-python = ">=3.10"
