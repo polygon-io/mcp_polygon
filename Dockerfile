@@ -12,4 +12,4 @@ RUN chmod +x entrypoint.py
 
 ENV PYTHONPATH=/app/src:$PYTHONPATH
 
-ENTRYPOINT ["python", "./entrypoint.py"]
+ENTRYPOINT ["uv", "run", "./entrypoint.py"]
