@@ -14,6 +14,8 @@
 
 # Polygon.io MCP Server
 
+ [![GitHub release](https://img.shields.io/github/v/release/polygon-io/mcp_polygon)](https://github.com/polygon-io/mcp_polygon/releases)
+
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that provides access to [Polygon.io](https://polygon.io?utm_campaign=mcp&utm_medium=referral&utm_source=github) financial market data API through an LLM-friendly interface.
 
 ## Overview
@@ -81,7 +83,7 @@ Make sure you complete the various fields.
             "command": "<path_to_your_uvx_install>/uvx",
             "args": [
                 "--from",
-                "git+https://github.com/polygon-io/mcp_polygon@v0.1.0",
+                "git+https://github.com/polygon-io/mcp_polygon@v0.4.0",
                 "mcp_polygon"
             ],
             "env": {
