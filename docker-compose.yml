@@ -21,6 +21,8 @@ services:
       - MCP_MESSAGE_PATH=${MCP_MESSAGE_PATH:-/messages/}
       # Streamable-HTTP-specific settings
       - MCP_STREAMABLE_HTTP_PATH=${MCP_STREAMABLE_HTTP_PATH:-/mcp}
+      - MCP_JSON_RESPONSE=${MCP_JSON_RESPONSE:-false}
+      - MCP_STATELESS_HTTP=${MCP_STATELESS_HTTP:-false}
     stdin_open: true
     tty: true
     # Expose port for HTTP-based transports

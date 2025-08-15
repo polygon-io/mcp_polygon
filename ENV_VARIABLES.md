@@ -54,6 +54,16 @@ These settings only apply when using the Streamable-HTTP transport:
 - `MCP_STREAMABLE_HTTP_PATH`: Streamable HTTP endpoint path
   - Default: `/mcp`
 
+- `MCP_JSON_RESPONSE`: Return plain JSON instead of JSONRPC format
+  - Values: `true`, `1`, `yes`, `on` (enables JSON response mode)
+  - Default: `false`
+  - When enabled, returns raw JSON responses instead of JSONRPC wrapped responses
+
+- `MCP_STATELESS_HTTP`: Use stateless mode (new transport per request)
+  - Values: `true`, `1`, `yes`, `on` (enables stateless mode)
+  - Default: `false`
+  - When enabled, creates a new transport connection for each request instead of maintaining state
+
 ## Example Usage
 
 ### Running with stdio transport (default)
@@ -79,6 +89,17 @@ export MCP_TRANSPORT=streamable-http
 export MCP_HOST=0.0.0.0
 export MCP_PORT=3000
 export MCP_STREAMABLE_HTTP_PATH=/api/mcp
+uv run entrypoint.py
+```
+
+### Running with Streamable-HTTP in JSON response mode
+```bash
+export POLYGON_API_KEY=your_api_key_here
+export MCP_TRANSPORT=streamable-http
+export MCP_HOST=0.0.0.0
+export MCP_PORT=3000
+export MCP_JSON_RESPONSE=true
+export MCP_STATELESS_HTTP=true
 uv run entrypoint.py
 ```
 
@@ -113,6 +134,15 @@ docker run -e POLYGON_API_KEY=your_api_key_here \
   -e MCP_HOST=0.0.0.0 \
   -e MCP_LOG_LEVEL=DEBUG \
   -e MCP_STREAMABLE_HTTP_PATH=/api/mcp \
+  -p 8000:8000 \
+  mcp-polygon
+
+# Run with Streamable-HTTP in JSON response and stateless mode
+docker run -e POLYGON_API_KEY=your_api_key_here \
+  -e MCP_TRANSPORT=streamable-http \
+  -e MCP_HOST=0.0.0.0 \
+  -e MCP_JSON_RESPONSE=true \
+  -e MCP_STATELESS_HTTP=true \
   -p 8000:8000 \
   mcp-polygon
 ```

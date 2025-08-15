@@ -67,6 +67,15 @@ def get_server_settings() -> Dict[str, Any]:
     # Streamable HTTP endpoint path
     settings["streamable_http_path"] = os.environ.get("MCP_STREAMABLE_HTTP_PATH", "/mcp")
     
+    # Streamable HTTP specific settings
+    # JSON response mode (returns JSON instead of JSONRPC)
+    json_response_str = os.environ.get("MCP_JSON_RESPONSE", "false")
+    settings["json_response"] = json_response_str.lower() in ["true", "1", "yes", "on"]
+    
+    # Stateless HTTP mode (new transport per request)
+    stateless_http_str = os.environ.get("MCP_STATELESS_HTTP", "false")
+    settings["stateless_http"] = stateless_http_str.lower() in ["true", "1", "yes", "on"]
+    
     return settings
 
 
@@ -95,6 +104,8 @@ def start_server():
             print(f"  Message Path: {settings['message_path']}")
         elif transport_type == "streamable-http":
             print(f"  Streamable HTTP Path: {settings['streamable_http_path']}")
+            print(f"  JSON Response Mode: {settings['json_response']}")
+            print(f"  Stateless HTTP Mode: {settings['stateless_http']}")
     
     server.run(transport=transport_type, **settings)
 

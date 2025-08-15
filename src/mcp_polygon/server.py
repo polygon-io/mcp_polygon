@@ -2063,6 +2063,8 @@ def run(
     sse_path: str = "/sse",
     message_path: str = "/messages/",
     streamable_http_path: str = "/mcp",
+    json_response: bool = False,
+    stateless_http: bool = False,
 ) -> None:
     """Run the Polygon MCP server.
     
@@ -2076,6 +2078,8 @@ def run(
         sse_path: SSE endpoint path
         message_path: Message endpoint path (for SSE)
         streamable_http_path: Streamable HTTP endpoint path
+        json_response: Return JSON instead of JSONRPC for Streamable HTTP (default: False)
+        stateless_http: Use stateless mode (new transport per request) for Streamable HTTP (default: False)
     """
     # Update the FastMCP settings
     poly_mcp.settings.debug = debug
@@ -2095,5 +2099,7 @@ def run(
         # Streamable HTTP-specific path
         elif transport == "streamable-http":
             poly_mcp.settings.streamable_http_path = streamable_http_path
+            poly_mcp.settings.json_response = json_response
+            poly_mcp.settings.stateless_http = stateless_http
     
     poly_mcp.run(transport)

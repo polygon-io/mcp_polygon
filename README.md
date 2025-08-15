@@ -122,6 +122,10 @@ The Polygon MCP server can be configured using environment variables. See [ENV_V
 - `MCP_MESSAGE_PATH` - Message endpoint for SSE. Default: `/messages/`
 - `MCP_STREAMABLE_HTTP_PATH` - Streamable HTTP endpoint. Default: `/mcp`
 
+#### Streamable HTTP Settings
+- `MCP_JSON_RESPONSE` - Return plain JSON instead of JSONRPC (`true`/`false`). Default: `false`
+- `MCP_STATELESS_HTTP` - Use stateless mode, new transport per request (`true`/`false`). Default: `false`
+
 ### Examples
 
 Default STDIO transport:
@@ -143,6 +147,16 @@ Streamable HTTP with debug logging:
 ```bash
 MCP_TRANSPORT=streamable-http \
 MCP_LOG_LEVEL=DEBUG \
+MCP_HOST=0.0.0.0 \
+POLYGON_API_KEY=<your_api_key_here> \
+uv run entrypoint.py
+```
+
+Streamable HTTP with JSON response and stateless mode:
+```bash
+MCP_TRANSPORT=streamable-http \
+MCP_JSON_RESPONSE=true \
+MCP_STATELESS_HTTP=true \
 MCP_HOST=0.0.0.0 \
 POLYGON_API_KEY=<your_api_key_here> \
 uv run entrypoint.py
