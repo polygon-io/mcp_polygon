@@ -198,6 +198,14 @@ This will run `ruff format` and `ruff check --fix` to automatically format your 
 - [Model Context Protocol](https://modelcontextprotocol.io)
 - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 
+## Privacy Policy
+
+This MCP server interacts with Polygon.io's API to fetch market data. All data requests are subject to Polygon.io's privacy policy and terms of service.
+
+- **Polygon.io Privacy Policy**: https://polygon.io/legal/privacy
+- **Data Handling**: This server does not store or cache any user data. All requests are proxied directly to Polygon.io's API.
+- **API Key**: Your Polygon.io API key is used only for authenticating requests to their API.
+
 ## Contributing
 If you found a bug or have an idea for a new feature, please first discuss it with us by submitting a new issue.
 We will respond to issues within at most 3 weeks.

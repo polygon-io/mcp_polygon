@@ -2,6 +2,7 @@ import os
 import json
 from typing import Optional, Any, Dict, Union, List, Literal
 from mcp.server.fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 from polygon import RESTClient
 from importlib.metadata import version, PackageNotFoundError
 
@@ -23,7 +24,9 @@ polygon_client.headers["User-Agent"] += f" {version_number}"
 poly_mcp = FastMCP("Polygon", dependencies=["polygon"])
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_aggs(
     ticker: str,
     multiplier: int,
@@ -59,7 +62,9 @@ async def get_aggs(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_aggs(
     ticker: str,
     multiplier: int,
@@ -94,7 +99,9 @@ async def list_aggs(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_grouped_daily_aggs(
     date: str,
     adjusted: Optional[bool] = None,
@@ -123,7 +130,9 @@ async def get_grouped_daily_aggs(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_daily_open_close_agg(
     ticker: str,
     date: str,
@@ -144,7 +153,9 @@ async def get_daily_open_close_agg(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_previous_close_agg(
     ticker: str,
     adjusted: Optional[bool] = None,
@@ -164,7 +175,9 @@ async def get_previous_close_agg(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_trades(
     ticker: str,
     timestamp: Optional[Union[str, int, datetime, date]] = None,
@@ -201,7 +214,9 @@ async def list_trades(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_last_trade(
     ticker: str,
     params: Optional[Dict[str, Any]] = None,
@@ -218,7 +233,9 @@ async def get_last_trade(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_last_crypto_trade(
     from_: str,
     to: str,
@@ -238,7 +255,9 @@ async def get_last_crypto_trade(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_quotes(
     ticker: str,
     timestamp: Optional[Union[str, int, datetime, date]] = None,
@@ -275,7 +294,9 @@ async def list_quotes(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_last_quote(
     ticker: str,
     params: Optional[Dict[str, Any]] = None,
@@ -292,7 +313,9 @@ async def get_last_quote(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_last_forex_quote(
     from_: str,
     to: str,
@@ -312,7 +335,9 @@ async def get_last_forex_quote(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_real_time_currency_conversion(
     from_: str,
     to: str,
@@ -339,7 +364,9 @@ async def get_real_time_currency_conversion(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_universal_snapshots(
     type: str,
     ticker_any_of: Optional[List[str]] = None,
@@ -368,7 +395,9 @@ async def list_universal_snapshots(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_snapshot_all(
     market_type: str,
     tickers: Optional[List[str]] = None,
@@ -393,7 +422,9 @@ async def get_snapshot_all(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_snapshot_direction(
     market_type: str,
     direction: str,
@@ -418,7 +449,9 @@ async def get_snapshot_direction(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_snapshot_ticker(
     market_type: str,
     ticker: str,
@@ -438,7 +471,9 @@ async def get_snapshot_ticker(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_snapshot_option(
     underlying_asset: str,
     option_contract: str,
@@ -461,7 +496,9 @@ async def get_snapshot_option(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_snapshot_crypto_book(
     ticker: str,
     params: Optional[Dict[str, Any]] = None,
@@ -480,7 +517,9 @@ async def get_snapshot_crypto_book(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_market_holidays(
     params: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
@@ -496,7 +535,9 @@ async def get_market_holidays(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_market_status(
     params: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
@@ -512,7 +553,9 @@ async def get_market_status(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_tickers(
     ticker: Optional[str] = None,
     type: Optional[str] = None,
@@ -555,7 +598,9 @@ async def list_tickers(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_ticker_details(
     ticker: str,
     date: Optional[Union[str, datetime, date]] = None,
@@ -575,7 +620,9 @@ async def get_ticker_details(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_ticker_news(
     ticker: Optional[str] = None,
     published_utc: Optional[Union[str, datetime, date]] = None,
@@ -604,7 +651,9 @@ async def list_ticker_news(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_ticker_types(
     asset_class: Optional[str] = None,
     locale: Optional[str] = None,
@@ -624,7 +673,9 @@ async def get_ticker_types(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_splits(
     ticker: Optional[str] = None,
     execution_date: Optional[Union[str, datetime, date]] = None,
@@ -651,7 +702,9 @@ async def list_splits(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_dividends(
     ticker: Optional[str] = None,
     ex_dividend_date: Optional[Union[str, datetime, date]] = None,
@@ -680,7 +733,9 @@ async def list_dividends(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_conditions(
     asset_class: Optional[str] = None,
     data_type: Optional[str] = None,
@@ -707,7 +762,9 @@ async def list_conditions(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_exchanges(
     asset_class: Optional[str] = None,
     locale: Optional[str] = None,
@@ -727,7 +784,9 @@ async def get_exchanges(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_stock_financials(
     ticker: Optional[str] = None,
     cik: Optional[str] = None,
@@ -786,7 +845,9 @@ async def list_stock_financials(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_ipos(
     ticker: Optional[str] = None,
     listing_date: Optional[Union[str, datetime, date]] = None,
@@ -825,7 +886,9 @@ async def list_ipos(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_short_interest(
     ticker: Optional[str] = None,
     settlement_date: Optional[Union[str, datetime, date]] = None,
@@ -862,7 +925,9 @@ async def list_short_interest(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_short_volume(
     ticker: Optional[str] = None,
     date: Optional[Union[str, datetime, date]] = None,
@@ -899,7 +964,9 @@ async def list_short_volume(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_treasury_yields(
     date: Optional[Union[str, datetime, date]] = None,
     date_any_of: Optional[str] = None,
@@ -935,7 +1002,9 @@ async def list_treasury_yields(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_inflation(
     date: Optional[Union[str, datetime, date]] = None,
     date_any_of: Optional[str] = None,
@@ -970,7 +1039,9 @@ async def list_inflation(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_analyst_insights(
     date: Optional[Union[str, date]] = None,
     date_any_of: Optional[str] = None,
@@ -1077,7 +1148,9 @@ async def list_benzinga_analyst_insights(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_analysts(
     benzinga_id: Optional[str] = None,
     benzinga_id_any_of: Optional[str] = None,
@@ -1148,7 +1221,9 @@ async def list_benzinga_analysts(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_consensus_ratings(
     ticker: str,
     date: Optional[Union[str, date]] = None,
@@ -1181,7 +1256,9 @@ async def list_benzinga_consensus_ratings(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_earnings(
     date: Optional[Union[str, date]] = None,
     date_any_of: Optional[str] = None,
@@ -1312,7 +1389,9 @@ async def list_benzinga_earnings(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_firms(
     benzinga_id: Optional[str] = None,
     benzinga_id_any_of: Optional[str] = None,
@@ -1347,7 +1426,9 @@ async def list_benzinga_firms(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_guidance(
     date: Optional[Union[str, date]] = None,
     date_any_of: Optional[str] = None,
@@ -1454,7 +1535,9 @@ async def list_benzinga_guidance(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_news(
     published: Optional[str] = None,
     published_any_of: Optional[str] = None,
@@ -1531,7 +1614,9 @@ async def list_benzinga_news(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_benzinga_ratings(
     date: Optional[Union[str, date]] = None,
     date_any_of: Optional[str] = None,
@@ -1662,7 +1747,9 @@ async def list_benzinga_ratings(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_aggregates(
     ticker: str,
     resolution: str,
@@ -1699,7 +1786,9 @@ async def list_futures_aggregates(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_contracts(
     product_code: Optional[str] = None,
     first_trade_date: Optional[Union[str, date]] = None,
@@ -1734,7 +1823,9 @@ async def list_futures_contracts(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_futures_contract_details(
     ticker: str,
     as_of: Optional[Union[str, date]] = None,
@@ -1757,7 +1848,9 @@ async def get_futures_contract_details(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_products(
     name: Optional[str] = None,
     name_search: Optional[str] = None,
@@ -1798,7 +1891,9 @@ async def list_futures_products(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_futures_product_details(
     product_code: str,
     type: Optional[str] = None,
@@ -1823,7 +1918,9 @@ async def get_futures_product_details(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_quotes(
     ticker: str,
     timestamp: Optional[str] = None,
@@ -1868,7 +1965,9 @@ async def list_futures_quotes(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_trades(
     ticker: str,
     timestamp: Optional[str] = None,
@@ -1913,7 +2012,9 @@ async def list_futures_trades(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_schedules(
     session_end_date: Optional[str] = None,
     trading_venue: Optional[str] = None,
@@ -1940,7 +2041,9 @@ async def list_futures_schedules(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_schedules_by_product_code(
     product_code: str,
     session_end_date: Optional[str] = None,
@@ -1975,7 +2078,9 @@ async def list_futures_schedules_by_product_code(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def list_futures_market_statuses(
     product_code_any_of: Optional[str] = None,
     product_code: Optional[str] = None,
@@ -2002,7 +2107,9 @@ async def list_futures_market_statuses(
         return {"error": str(e)}
 
 
-@poly_mcp.tool()
+@poly_mcp.tool(
+        annotations=ToolAnnotations(readOnlyHint=True)
+)
 async def get_futures_snapshot(
     ticker: Optional[str] = None,
     ticker_any_of: Optional[str] = None,
