@@ -52,7 +52,7 @@ path to `uvx`.
 
 ```bash
 # Claude CLI
-claude mcp add polygon -e POLYGON_API_KEY=your_api_key_here -- uvx --from git+https://github.com/polygon-io/mcp_polygon@v0.4.0 mcp_polygon
+claude mcp add polygon -e POLYGON_API_KEY=your_api_key_here -- uvx --from git+https://github.com/polygon-io/mcp_polygon@v0.4.1 mcp_polygon
 ```
 
 This command will install the MCP server in your current project.
@@ -83,7 +83,7 @@ Make sure you complete the various fields.
             "command": "<path_to_your_uvx_install>/uvx",
             "args": [
                 "--from",
-                "git+https://github.com/polygon-io/mcp_polygon@v0.4.0",
+                "git+https://github.com/polygon-io/mcp_polygon@v0.4.1",
                 "mcp_polygon"
             ],
             "env": {
