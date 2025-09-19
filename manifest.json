@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.2",
+  "name": "mcp_polygon",
+  "version": "0.4.1",
+  "description": "MCP server providing access to Polygon.io financial market data API",
+  "author": {
+    "name": "Polygon.io",
+    "email": "support@polygon.io",
+    "url": "https://polygon.io"
+  },
+  "privacy_policies": [
+    "https://polygon.io/legal/privacy"
+  ],
+  "server": {
+    "type": "python",
+    "entry_point": "mcp_polygon",
+    "mcp_config": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/polygon-io/mcp_polygon",
+        "mcp_polygon"
+      ]
+    }
+  },
+  "user_config": {
+    "POLYGON_API_KEY": {
+      "type": "string",
+      "description": "Your Polygon.io API key for accessing market data",
+      "required": true,
+      "sensitive": true
+    }
+  },
+  "compatibility": {
+    "python": ">=3.10"
+  },
+  "repository": "https://github.com/polygon-io/mcp_polygon",
+  "license": "MIT"
+}
