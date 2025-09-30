@@ -5,8 +5,8 @@ description = "A MCP server project"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "mcp[cli]>=1.9.3",
- "polygon-api-client>=1.15.3",
+    "mcp[cli]>=1.15.0",
+ "polygon-api-client>=1.15.4",
 ]
 [[project.authors]]
 name = "Polygon"
@@ -18,7 +18,8 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "ruff>=0.12.4",
+    "ruff>=0.13.2",
+    "pytest>=8.4.0",
 ]
 
 [project.scripts]
