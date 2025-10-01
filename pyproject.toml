@@ -20,6 +20,7 @@ build-backend = "hatchling.build"
 dev = [
     "ruff>=0.13.2",
     "pytest>=8.4.0",
+    "rust-just>=1.42.4",
 ]
 
 [project.scripts]
