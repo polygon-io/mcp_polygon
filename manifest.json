@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.2",
   "name": "mcp_polygon",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "MCP server providing access to Polygon.io financial market data API",
   "author": {
     "name": "Polygon.io",

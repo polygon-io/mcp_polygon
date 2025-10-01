@@ -28,8 +28,8 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Run Ruff check
-        run: uv run ruff check
+      - name: Run linter
+        run: uv run just lint
 
-      - name: Run Ruff format
-        run: uv run ruff format --check
+      - name: Run tests
+        run: uv run just test
