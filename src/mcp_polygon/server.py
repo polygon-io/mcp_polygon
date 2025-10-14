@@ -4,7 +4,7 @@ from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
 from polygon import RESTClient
 from importlib.metadata import version, PackageNotFoundError
-from src.mcp_polygon.formatters import json_to_csv
+from .formatters import json_to_csv
 
 from datetime import datetime, date
 
