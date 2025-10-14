@@ -463,6 +463,34 @@ async def get_snapshot_option(
 
 
 @poly_mcp.tool(annotations=ToolAnnotations(readOnlyHint=True))
+async def list_snapshot_options_chain(
+    underlying_asset: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """
+    Get snapshots of all option contracts for an underlying ticker.
+    Returns the full options chain with detailed contract data including greeks, implied volatility, and market data.
+    """
+    try:
+        # Set default limit to 250 to avoid multiple API calls
+        if params is None:
+            params = {}
+        if "limit" not in params:
+            params["limit"] = 250
+
+        results = polygon_client.list_snapshot_options_chain(
+            underlying_asset=underlying_asset,
+            params=params,
+            raw=True,
+        )
+
+        data_str = results.data.decode("utf-8")
+        return json.loads(data_str)
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@poly_mcp.tool(annotations=ToolAnnotations(readOnlyHint=True))
 async def get_snapshot_crypto_book(
     ticker: str,
     params: Optional[Dict[str, Any]] = None,
